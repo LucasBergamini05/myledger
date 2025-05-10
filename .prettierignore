@@ -1,0 +1,6 @@
+# Ignore all files in the project
+*
+
+# Except the src directory
+!src/
+!src/**/*
