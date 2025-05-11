@@ -12,7 +12,7 @@ const inriaSans = Inria_Sans({
 
 export const metadata: Metadata = {
   description: 'Plataforma de organização financeira',
-  title: 'Ledger',
+  title: 'MyLedger',
 };
 
 export default function RootLayout({
