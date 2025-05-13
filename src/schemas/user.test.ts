@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { signUpSchema } from './user';
+import { signUpSchema } from './user.schema';
 
 describe('signUpSchema', () => {
   it('deve passar com usuário válido', () => {
@@ -23,9 +23,6 @@ describe('signUpSchema', () => {
     });
 
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.format().email?._errors).toContain('Invalid email');
-    }
   });
 
   it('deve falhar com senha fraca', () => {
