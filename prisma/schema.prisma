@@ -22,7 +22,6 @@ model contas {
   id_usuario      Int
   nome            String       @db.VarChar(60)
   tipo            tipo_conta?  @default(d)
-  saldo           Int
   data_criacao    DateTime?    @db.Timestamp(6)
   data_fechamento DateTime     @db.Date
   data_vencimento DateTime     @db.Date
