@@ -23,3 +23,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
 }
+
+.loading-spinner {
+  mask-image: url('/LoadingSpinner.svg');
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: currentColor;
+  mask-size: 100%;
+  mask-position: -50%;
+}

@@ -1,6 +1,6 @@
 import { cn } from '@/utils/string';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   theme?: ButtonTheme;
 }
@@ -17,15 +17,15 @@ export const Button = ({
   <button
     {...props}
     className={cn(
-      'p-2 flex items-center justify-center gap-1 rounded-md transition-all',
-      disabled || loading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+      'w-fit min-h-10 p-2 inline-flex items-center justify-center gap-1 rounded-md transition-all',
+      disabled || loading ? 'cursor-not-allowed brightness-75' : 'cursor-pointer',
       handleTheme({ disabled, loading, theme }),
       className
     )}
     disabled={disabled || loading}
     type={type}
   >
-    {loading && <div className="  "></div>}
+    {loading && <div className="loading-spinner" />}
     {!loading && children}
   </button>
 );
@@ -47,7 +47,7 @@ const handleTheme = ({ disabled, loading, theme = 'neutral' }: HandleThemeProps)
     ),
 
     primary: cn(
-      'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
+      'bg-blue-500 text-white',
       enabled && 'hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200'
     ),
   };
