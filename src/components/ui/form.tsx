@@ -1,56 +1,44 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  DefaultValues,
   FieldValues,
   FormProvider,
   Path,
   SubmitErrorHandler,
   SubmitHandler,
-  useForm,
   useFormContext,
   UseFormGetFieldState,
   UseFormRegisterReturn,
+  UseFormReturn,
 } from 'react-hook-form';
-import { ZodType } from 'zod';
 
 import { cn } from '@/utils/string';
 
 interface FormProps<FormSchema extends FieldValues> {
   children: React.ReactNode;
   className?: string;
-  defaultValues?: DefaultValues<FormSchema> | DefaultValues<FormSchema> | undefined;
+  form: UseFormReturn<FormSchema>;
   onError?: SubmitErrorHandler<FormSchema>;
   onSubmit: SubmitHandler<FormSchema>;
-  zodSchema: ZodType<FormSchema>;
 }
 
 /**
  * Form component that wraps react-hook-form and provides a context for form state management.
  */
 export const Form = <FormSchema extends FieldValues>({
-  defaultValues,
+  form,
   onError,
   onSubmit,
-  zodSchema,
   ...props
-}: FormProps<FormSchema>) => {
-  const form = useForm<FormSchema>({
-    defaultValues: defaultValues,
-    resolver: zodResolver(zodSchema),
-  });
-
-  return (
-    <FormProvider {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit, onError)}
-        {...props}
-        className={cn('flex w-full max-w-xl flex-col gap-4', props.className)}
-      />
-    </FormProvider>
-  );
-};
+}: FormProps<FormSchema>) => (
+  <FormProvider {...form}>
+    <form
+      onSubmit={form.handleSubmit(onSubmit, onError)}
+      {...props}
+      className={cn('flex w-full max-w-xl flex-col gap-4', props.className)}
+    />
+  </FormProvider>
+);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

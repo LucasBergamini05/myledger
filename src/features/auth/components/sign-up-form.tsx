@@ -1,37 +1,64 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import AddIcon from '@iconify-icons/fluent/add-12-filled';
 import { Icon } from '@iconify/react';
-import { Path } from 'react-hook-form';
+import { useState } from 'react';
+import { Path, SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTheme } from '@/components/ui/alert';
 import { Form, FormField, Input } from '@/components/ui/form';
+import { SubmitButton } from '@/components/ui/submit-button';
 import { SignUpData, signUpSchema } from '@/schemas/user.schema';
 
-export const SignUpForm = () => (
-  <div>
-    <h1 className="text-lg text-center">Cadastro</h1>
+export const SignUpForm = () => {
+  const [alert, setAlert] = useState<{ message: string; type: AlertTheme }>();
 
-    <Form onSubmit={(data) => console.log(data)} zodSchema={signUpSchema}>
-      {fields.map((field) => (
-        <FormField
-          className="mb-4"
-          key={field.name}
-          label={field.label}
-          name={field.name}
-          render={(inputProps) => (
-            <Input {...inputProps} placeholder={field.placeholder} type={field.type} />
-          )}
-        />
-      ))}
+  const form = useForm<SignUpData>({
+    resolver: zodResolver(signUpSchema),
+  });
 
-      <Button theme="neutral" type="submit">
-        <Icon className="inline" icon={AddIcon} />
-        Cadastrar
-      </Button>
-    </Form>
-  </div>
-);
+  const onSubmit: SubmitHandler<SignUpData> = async (data) => {
+    const res = await fetch('/api/auth/register', {
+      body: JSON.stringify(data),
+      method: 'POST',
+    });
+
+    const body = await res.json();
+
+    if (!res.ok) return setAlert({ message: body.error, type: 'error' });
+
+    setAlert({ message: 'Cadastro realizado', type: 'sucess' });
+    form.reset();
+  };
+
+  return (
+    <div>
+      <h1 className="text-lg text-center">Cadastro</h1>
+
+      <Form form={form} onSubmit={onSubmit}>
+        {fields.map((field) => (
+          <FormField
+            className="mb-4"
+            key={field.name}
+            label={field.label}
+            name={field.name}
+            render={(inputProps) => (
+              <Input {...inputProps} placeholder={field.placeholder} type={field.type} />
+            )}
+          />
+        ))}
+
+        {alert && <Alert theme={alert.type}>{alert.message}</Alert>}
+
+        <SubmitButton className="w-full" theme="primary">
+          <Icon className="inline" icon={AddIcon} />
+          Cadastrar
+        </SubmitButton>
+      </Form>
+    </div>
+  );
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
