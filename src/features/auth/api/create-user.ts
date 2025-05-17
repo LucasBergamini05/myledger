@@ -10,15 +10,16 @@ import { checkUserEmail } from './check-user-email';
  * @param user The user data to create
  * @returns The created user or false if the email already exists
  */
-export const createUser = async ({ senha, ...user }: Omit<SignUpData, 'confirmacaoSenha'>) => {
+export const createUser = async ({ email, nome, senha }: Omit<SignUpData, 'confirmacaoSenha'>) => {
   // Check if user already exists
-  if (await checkUserEmail(user.email)) throw new Error('Email já cadastrado');
+  if (await checkUserEmail(email)) throw new Error('Email já cadastrado');
 
   const hashedPassword = await bcrypt.hash(senha, 10);
 
   return prisma.usuarios.create({
     data: {
-      ...user,
+      email,
+      nome,
       senha_hash: hashedPassword,
     },
   });

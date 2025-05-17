@@ -1,36 +1,18 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import AddIcon from '@iconify-icons/fluent/add-12-filled';
 import { Icon } from '@iconify/react';
-import { useState } from 'react';
-import { Path, SubmitHandler, useForm } from 'react-hook-form';
+import { Path } from 'react-hook-form';
 
-import { Alert, AlertTheme } from '@/components/ui/alert';
+import { Alert } from '@/components/ui/alert';
 import { Form, FormField, Input } from '@/components/ui/form';
 import { SubmitButton } from '@/components/ui/submit-button';
-import { SignUpData, signUpSchema } from '@/schemas/user.schema';
+import { SignUpData } from '@/schemas/user.schema';
+
+import { useSignUpForm } from '../hooks/useSignUpForm';
 
 export const SignUpForm = () => {
-  const [alert, setAlert] = useState<{ message: string; type: AlertTheme }>();
-
-  const form = useForm<SignUpData>({
-    resolver: zodResolver(signUpSchema),
-  });
-
-  const onSubmit: SubmitHandler<SignUpData> = async (data) => {
-    const res = await fetch('/api/auth/register', {
-      body: JSON.stringify(data),
-      method: 'POST',
-    });
-
-    const body = await res.json();
-
-    if (!res.ok) return setAlert({ message: body.error, type: 'error' });
-
-    setAlert({ message: 'Cadastro realizado', type: 'sucess' });
-    form.reset();
-  };
+  const { alert, form, onSubmit } = useSignUpForm();
 
   return (
     <div>

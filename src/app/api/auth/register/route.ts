@@ -3,6 +3,7 @@ import { ZodError } from 'zod';
 import { createUser } from '@/features/auth/api/create-user';
 import { signUpSchema } from '@/schemas/user.schema';
 import { handleResponse } from '@/utils/api';
+import { createSession } from '@/utils/auth';
 
 /**
  * Route to handle user registration
@@ -12,10 +13,12 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     // Validate request body
-    const { confirmacaoSenha, ...user } = signUpSchema.parse(body);
+    const user = signUpSchema.parse(body);
 
-    // Destructure password to not send it back
+    // Deconstruct the password so it doesn't get sent back
     const { senha_hash, ...newUser } = await createUser(user);
+
+    await createSession(newUser);
 
     return handleResponse(201, 'Usuário criado com sucesso', {
       user: newUser,
