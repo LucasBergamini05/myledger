@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚧🚧 **MyLedger** 🚧🚧
 
-## Getting Started
+Este projeto será um sistema de organização financeira simples.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📝 **Requisitos Funcionais**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Login e autenticação do usuário
+- Cadastro de transações (entrada e saída)
+- Cadastro de transações em lote (via planilha, csv, etc)
+- Listagem de transações com filtros
+- Edição e exclusão de transações
+- Cálculo automático do saldo total, entradas e saídas
+- Cadastro e edição de categorias personalizadas
+- Agrupamento por mês (relatórios mensais)
+- Visualização de gráfico de gastos por categoria
+- Armazenamento dos dados no banco de dados relacional
+- Responsividade para celular e desktop
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🖥️ **Stack de Tecnologias**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 💻 Frontend + Backend
 
-## Learn More
+- [**Next.js**](https://nextjs.org/)
+    - Framework React FullStack
+- [**TypeScript**](https://www.typescriptlang.org/)
+    - Extensão do JavaScript com tipagem forte
+- [**Tailwind CSS**](https://tailwindcss.com/)
+    - Framework CSS
 
-To learn more about Next.js, take a look at the following resources:
+### 🗃️ Banco de dados
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [**Neon**](https://planetscale.com/)
+    - Banco de dados Postgres serverless
+- [**Prisma ORM**](https://www.prisma.io/)
+    - Interface entre o app e o banco, com tipagem e migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ☁️ Deploy
 
-## Deploy on Vercel
+- [**Vercel**](https://vercel.com/)
+    - Deploy integrado ao GitHub.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ⚙️ Dev Tools / Boas práticas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [**Conventional Commits**](https://www.conventionalcommits.org/en/v1.0.0/)
+    - Convenção de commits que facilita o versionamento semântico e changelogs automáticos
+- [**Eslint**](https://eslint.org/)
+    - Validação de estilo e erros no código
+    - Com o plugin `eslint-plugin-perfectionist` (organização de objetos, imports, etc.)
+- [**Prettier**](https://prettier.io/)
+    - Formatação automática de código
