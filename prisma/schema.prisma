@@ -22,7 +22,6 @@ model contas {
   id_usuario      Int
   nome            String       @db.VarChar(60)
   tipo            tipo_conta?  @default(d)
-  saldo           Int
   data_criacao    DateTime?    @db.Timestamp(6)
   data_fechamento DateTime     @db.Date
   data_vencimento DateTime     @db.Date
@@ -51,8 +50,8 @@ model usuarios {
   nome         String       @db.VarChar(60)
   email        String       @unique @db.VarChar(255)
   senha_hash   String
-  data_criacao DateTime?    @db.Timestamp(6)
-  ultimo_login DateTime?    @db.Timestamp(6)
+  data_criacao DateTime?    @default(now()) @db.Timestamp(6)
+  ultimo_login DateTime?    @default(now()) @db.Timestamp(6)
   ativo        Boolean?     @default(true)
   categorias   categorias[]
   contas       contas[]

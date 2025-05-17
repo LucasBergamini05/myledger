@@ -16,6 +16,7 @@ const eslintConfig = defineConfig(
   perfectionist.configs['recommended-alphabetical'],
   {
     rules: {
+      "@typescript-eslint/no-unused-vars": 'off',
       'perfectionist/sort-imports': [
         'error',
         {

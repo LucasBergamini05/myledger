@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inria_Sans } from 'next/font/google';
 
+import { Header } from '@/components/layout/header';
+
 import './globals.css';
 
 const inriaSans = Inria_Sans({
@@ -22,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={inriaSans.variable} lang="pt-br">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
