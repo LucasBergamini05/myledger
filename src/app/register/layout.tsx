@@ -1,5 +1,9 @@
 import { PageCard } from '@/components/layout/page-card';
 
-const RegisterLayout = PageCard;
-
-export default RegisterLayout;
+export default function RegisterLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <PageCard>{children}</PageCard>;
+}

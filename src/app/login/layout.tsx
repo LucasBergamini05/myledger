@@ -1,5 +1,9 @@
-import PageCard from '../register/layout';
+import { PageCard } from '@/components/layout/page-card';
 
-const LoginLayout = PageCard;
-
-export default LoginLayout;
+export default function LoginLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <PageCard>{children}</PageCard>;
+}
