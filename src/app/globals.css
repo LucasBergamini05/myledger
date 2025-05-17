@@ -25,10 +25,15 @@ body {
 }
 
 .loading-spinner {
+  --size: 1.5rem;
   mask-image: url('/LoadingSpinner.svg');
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--size);
+  height: var(--size);
   background-color: currentColor;
   mask-size: 100%;
   mask-position: -50%;
+}
+
+.loading-spinner-sm {
+  --size: 1rem;
 }

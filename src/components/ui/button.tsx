@@ -2,6 +2,7 @@ import { cn } from '@/utils/string';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
+  size?: 'md' | 'sm';
   theme?: ButtonTheme;
 }
 
@@ -10,6 +11,7 @@ export const Button = ({
   className,
   disabled,
   loading,
+  size = 'md',
   theme,
   type = 'button',
   ...props
@@ -19,13 +21,14 @@ export const Button = ({
     className={cn(
       'w-fit min-h-10 p-2 inline-flex items-center justify-center gap-1 rounded-md transition-all',
       disabled || loading ? 'cursor-not-allowed brightness-75' : 'cursor-pointer',
+      size == 'sm' && 'min-h-0 py-1',
       handleTheme({ disabled, loading, theme }),
       className
     )}
     disabled={disabled || loading}
     type={type}
   >
-    {loading && <div className="loading-spinner" />}
+    {loading && <div className={cn('loading-spinner', size == 'sm' && 'loading-spinner-sm')} />}
     {!loading && children}
   </button>
 );

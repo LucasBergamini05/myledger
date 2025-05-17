@@ -13,7 +13,9 @@ export const Profile = async ({ className, ...props }: React.HTMLAttributes<HTML
       {user ? (
         <div className="flex gap-2 items-center">
           Logado
-          <LogoutButton className="min-h-6 h-6">Sair</LogoutButton>
+          <LogoutButton className="h-6 w-12" size="sm">
+            Sair
+          </LogoutButton>
         </div>
       ) : (
         <>
