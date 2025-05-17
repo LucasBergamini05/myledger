@@ -30,8 +30,6 @@ export const getCurrentUser = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get('auth_token')?.value;
 
-  console.log(token);
-
   if (token)
     try {
       return jwt.verify(token, process.env.JWT_SECRET!);

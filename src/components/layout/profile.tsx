@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
-import { LogoutButton } from '@/features/auth/components/logout-button';
 import { getCurrentUser } from '@/utils/auth';
 import { cn } from '@/utils/string';
+
+import { LogoutButton } from './logout-button';
 
 export const Profile = async ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   const user = await getCurrentUser();
@@ -16,8 +17,8 @@ export const Profile = async ({ className, ...props }: React.HTMLAttributes<HTML
         </div>
       ) : (
         <>
-          <Link href="/">Entrar</Link>
-          <Link href="/sign-up">Cadastrar</Link>
+          <Link href="/login">Entrar</Link>
+          <Link href="/register">Cadastrar</Link>
         </>
       )}
     </div>

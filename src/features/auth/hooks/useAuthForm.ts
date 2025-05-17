@@ -4,18 +4,23 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { AlertTheme } from '@/components/ui/alert';
-import { SignUpData, signUpSchema } from '@/schemas/user.schema';
+import { authSchema, AuthSchemaData } from '@/schemas/auth.schema';
 
-export const useSignUpForm = () => {
+import { AuthFormType } from '../components/auth-form';
+
+export const useAuthForm = (type: AuthFormType) => {
   const router = useRouter();
   const [alert, setAlert] = useState<{ message: string; type: AlertTheme }>();
 
-  const form = useForm<SignUpData>({
-    resolver: zodResolver(signUpSchema),
+  const form = useForm<AuthSchemaData>({
+    defaultValues: {
+      type,
+    },
+    resolver: zodResolver(authSchema),
   });
 
-  const onSubmit: SubmitHandler<SignUpData> = async (data) => {
-    const res = await fetch('/api/auth/register', {
+  const onSubmit: SubmitHandler<AuthSchemaData> = async (data) => {
+    const res = await fetch('/api/auth/' + type, {
       body: JSON.stringify(data),
       method: 'POST',
     });

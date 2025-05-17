@@ -110,6 +110,39 @@ export const FormField = <TFieldValues extends FieldValues>({
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+export type TFormField<TFieldValues extends FieldValues> = {
+  className?: string;
+  label: string;
+  name: Path<TFieldValues>;
+  placeholder?: string;
+  type?: 'email' | 'password' | 'text';
+};
+
+interface FormFieldRenderProps<TFieldValues extends FieldValues> {
+  fields: TFormField<TFieldValues>[];
+}
+
+/**
+ * Component that renders multiples FormFields
+ * @param fields Field list
+ */
+export const FormFieldRender = <TFieldValues extends FieldValues>({
+  fields,
+}: FormFieldRenderProps<TFieldValues>) =>
+  fields.map((field) => (
+    <FormField
+      className={cn('mb-4', field.className)}
+      key={field.name}
+      label={field.label}
+      name={field.name}
+      render={(inputProps) => (
+        <Input {...inputProps} placeholder={field.placeholder} type={field.type} />
+      )}
+    />
+  ));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // UI Components
 
 export const Label = (props: React.LabelHTMLAttributes<HTMLLabelElement>) => (
