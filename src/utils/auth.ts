@@ -1,5 +1,5 @@
 import { usuarios } from '@prisma/client';
-import jwt from 'jsonwebtoken';
+import { jwtVerify, SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
 /**
@@ -11,8 +11,14 @@ export const createSession = async ({
   id,
   nome,
 }: Pick<usuarios, 'email' | 'id' | 'nome'>) => {
-  const token = jwt.sign({ email, nome, sub: id }, process.env.JWT_SECRET!, { expiresIn: '1d' });
-  console.log(token);
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+
+  const token = await new SignJWT({ email, nome })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setSubject(id.toString())
+    .setExpirationTime('1d')
+    .sign(secret);
+
   (await cookies()).set('auth_token', token, {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7, // 7 dias
@@ -30,12 +36,19 @@ export const getCurrentUser = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get('auth_token')?.value;
 
-  if (token)
-    try {
-      return jwt.verify(token, process.env.JWT_SECRET!);
-    } catch (e) {
-      console.error(e);
-    }
+  if (!token) return null;
 
-  return null;
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+    const { payload } = await jwtVerify(token, secret);
+
+    return {
+      email: payload.email as string,
+      id: payload.sub as string,
+      nome: payload.nome as string,
+    };
+  } catch (e) {
+    console.error('Erro ao verificar token:', e);
+    return null;
+  }
 };
