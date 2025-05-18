@@ -29,6 +29,7 @@ export const useAuthForm = (type: AuthFormType) => {
 
     if (!res.ok) return setAlert({ message: body.error, type: 'error' });
 
+    setAlert(undefined);
     router.push('/');
     router.refresh();
   };
