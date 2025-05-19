@@ -3,13 +3,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/utils/auth';
 
 export const middleware = async (request: NextRequest) => {
-  if (request.nextUrl.pathname !== '/') return NextResponse.next();
-
   const isUserLogged = !!(await getCurrentUser());
 
-  // Changes base URL to /app when user is logged in
-  if (isUserLogged) return NextResponse.rewrite(new URL('/home', request.url));
+  switch (request.nextUrl.pathname) {
+    case '/':
+      // If user is logged in, redirect to /home
+      if (isUserLogged) return NextResponse.redirect(new URL('/home', request.url));
 
-  // Changes base URL to /login when user is not logged in
-  return NextResponse.rewrite(new URL('/login', request.url));
+      // If user is not logged in, redirect to /login
+      return NextResponse.redirect(new URL('/login', request.url));
+
+    case '/login':
+    case '/register':
+      // If user is logged in, redirect to /home
+      if (isUserLogged) return NextResponse.redirect(new URL('/home', request.url));
+
+    default:
+      // If user is not logged in, redirect to /login
+      if (!isUserLogged) return NextResponse.redirect(new URL('/login', request.url));
+  }
 };
