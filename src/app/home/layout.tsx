@@ -1,4 +1,3 @@
-import { Card } from '@/components/layout/card';
 import { PageContainer } from '@/components/layout/page-container';
 
 export default function LoginLayout({
@@ -6,9 +5,5 @@ export default function LoginLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <PageContainer>
-      <Card>{children}</Card>
-    </PageContainer>
-  );
+  return <PageContainer className="md:w-[95vw] lg:w-[80vw] m-auto">{children}</PageContainer>;
 }
