@@ -1,5 +1,6 @@
 import { usuarios } from '@prisma/client';
 import { jwtVerify, SignJWT } from 'jose';
+import { JWTExpired } from 'jose/errors';
 import { cookies } from 'next/headers';
 
 /**
@@ -48,7 +49,7 @@ export const getCurrentUser = async () => {
       nome: payload.nome as string,
     };
   } catch (e) {
-    console.error('Erro ao verificar token:', e);
+    if (!(e instanceof JWTExpired)) console.error('Erro ao verificar token:', e);
     return null;
   }
 };
