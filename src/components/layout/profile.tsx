@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { getCurrentUser } from '@/utils/auth';
-import { cn } from '@/utils/string';
+import { getCurrentUser } from '@/lib/session';
+import { cn } from '@/lib/string';
 
 import { LogoutButton } from './logout-button';
 

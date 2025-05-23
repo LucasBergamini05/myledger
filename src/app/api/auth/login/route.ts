@@ -3,8 +3,8 @@ import { ZodError } from 'zod';
 
 import { prisma } from '@/lib/prisma';
 import { loginSchema } from '@/schemas/auth.schema';
-import { handleResponse } from '@/utils/api';
-import { createSession } from '@/utils/auth';
+import { handleResponse } from '@/lib/api';
+import { createSession } from '@/lib/session';
 
 export async function POST(request: Request) {
   try {

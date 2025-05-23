@@ -1,4 +1,4 @@
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;

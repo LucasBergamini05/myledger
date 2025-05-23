@@ -1,4 +1,4 @@
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 export const PageContainer = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div

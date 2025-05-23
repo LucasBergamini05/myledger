@@ -12,7 +12,7 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 interface FormProps<FormSchema extends FieldValues> {
   children: React.ReactNode;

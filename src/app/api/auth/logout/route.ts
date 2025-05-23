@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { handleResponse } from '@/utils/api';
+import { handleResponse } from '@/lib/api';
 
 export async function POST() {
   try {

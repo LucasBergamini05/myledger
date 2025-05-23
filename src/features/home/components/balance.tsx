@@ -5,7 +5,7 @@ import { Icon, IconifyIcon } from '@iconify/react';
 
 import { Card } from '@/components/layout/card';
 import { IconContainer } from '@/components/ui/icon-container';
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 interface BalanceData {
   bgColor: string;

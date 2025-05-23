@@ -4,7 +4,7 @@ import InfoIcon from '@iconify-icons/fluent/info-12-regular';
 import WarnIcon from '@iconify-icons/fluent/warning-12-regular';
 import { Icon } from '@iconify/react';
 
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: AlertTheme;

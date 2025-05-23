@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as RechartsPrimitive from 'recharts';
 
-import { cn } from '@/utils/string';
+import { cn } from '@/lib/string';
 
 // Shadcn UI
 

@@ -5,7 +5,7 @@ import { Form, FormFieldRender, TFormField } from '@/components/ui/form';
 import { SubmitButton } from '@/components/ui/submit-button';
 import { LoginSchemaData, RegisterSchemaData } from '@/schemas/auth.schema';
 
-import { useAuthForm } from '../hooks/useAuthForm';
+import { useAuthForm } from '../hooks/use-auth-form';
 
 export type AuthFormType = 'login' | 'register';
 

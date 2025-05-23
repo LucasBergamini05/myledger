@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { getCurrentUser } from '@/utils/auth';
+import { getCurrentUser } from '@/lib/session';
 
 export const middleware = async (request: NextRequest) => {
   const isUserLogged = !!(await getCurrentUser());

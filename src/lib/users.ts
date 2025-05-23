@@ -1,15 +1,15 @@
 import bcrypt from 'bcryptjs';
 
-import { prisma } from '@/lib/prisma';
 import { RegisterSchemaData } from '@/schemas/auth.schema';
 
-import { checkUserEmail } from './check-user-email';
+import { prisma } from './prisma';
 
 /**
  * Create a new user in the database, hashing the password
  * @param user The user data to create
  * @returns The created user or false if the email already exists
  */
+
 export const createUser = async ({
   email,
   nome,
@@ -27,4 +27,16 @@ export const createUser = async ({
       senha_hash: hashedPassword,
     },
   });
+}; /**
+ * Check if the user email already exists in the database
+ * @param email The email to check
+ * @returns True if the email exists, false otherwise
+ */
+
+export const checkUserEmail = async (email: string) => {
+  const user = await prisma.usuarios.findUnique({
+    where: { email },
+  });
+
+  return !!user;
 };
