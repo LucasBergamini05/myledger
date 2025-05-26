@@ -1,10 +1,10 @@
 import { compare } from 'bcryptjs';
 import { ZodError } from 'zod';
 
-import { prisma } from '@/lib/prisma';
-import { loginSchema } from '@/schemas/auth.schema';
 import { handleResponse } from '@/lib/api';
+import { prisma } from '@/lib/prisma';
 import { createSession } from '@/lib/session';
+import { loginSchema } from '@/schemas/auth.schema';
 
 export async function POST(request: Request) {
   try {

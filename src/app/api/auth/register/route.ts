@@ -1,9 +1,9 @@
 import { ZodError } from 'zod';
 
-import { createUser } from '@/lib/users';
-import { registerSchema } from '@/schemas/auth.schema';
 import { handleResponse } from '@/lib/api';
 import { createSession } from '@/lib/session';
+import { createUser } from '@/lib/users';
+import { registerSchema } from '@/schemas/auth.schema';
 
 /**
  * Route to handle user registration
