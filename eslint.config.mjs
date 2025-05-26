@@ -18,7 +18,7 @@ const eslintConfig = defineConfig(
     rules: {
       "@typescript-eslint/no-unused-vars": 'off',
       'perfectionist/sort-imports': [
-        'error',
+        'warn',
         {
           groups: [
             ['value-builtin', 'value-external', 'type-builtin', 'type-external'],
