@@ -1,69 +1,34 @@
-import ArrowDownIcon from '@iconify-icons/fluent/arrow-circle-down-12-filled';
-import ArrowUpIcon from '@iconify-icons/fluent/arrow-circle-up-12-filled';
-import MoneyIcon from '@iconify-icons/fluent/money-16-filled';
-import { Icon, IconifyIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 
 import { Card } from '@/components/layout/card';
 import { IconContainer } from '@/components/ui/icon-container';
 import { cn } from '@/lib/string';
+import { TCompleteAccount } from '@/types/database';
 
-interface BalanceData {
-  bgColor: string;
-  icon: IconifyIcon;
-  textColor: string;
-  title: string;
-  value: string;
-}
+import { getBalanceData } from '../lib/balance-data';
+import { BalanceData, BalanceDetails as BalanceDetail } from '../types/balance-types';
 
 interface BalanceProps {
-  balance: BalanceData;
-  expense: BalanceData;
-  income: BalanceData;
+  userAccounts: TCompleteAccount[];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const Balance = () => {
-  const balanceProps: BalanceProps = {
-    balance: {
-      bgColor: 'bg-blue-500',
-      icon: MoneyIcon,
-      textColor: 'text-blue-500',
-      title: 'Saldo',
-      value: 'R$ 10.000,00',
-    },
-
-    income: {
-      bgColor: 'bg-green-500',
-      icon: ArrowDownIcon,
-      textColor: 'text-green-500',
-      title: 'Receitas',
-      value: 'R$ 20.000,00',
-    },
-
-    // eslint-disable-next-line perfectionist/sort-objects
-    expense: {
-      bgColor: 'bg-red-500',
-      icon: ArrowUpIcon,
-      textColor: 'text-red-500',
-      title: 'Despesas',
-      value: 'R$ 10.000,00',
-    },
-  };
-
+export const Balance = ({ userAccounts }: BalanceProps) => {
+  const balanceData = getBalanceData(userAccounts);
   return (
     <>
-      <BalanceMobile {...balanceProps} />
-      <BalanceDesktop {...balanceProps} />
+      <BalanceMobile {...balanceData} />
+      <BalanceDesktop {...balanceData} />
     </>
   );
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const BalanceDesktop = (props: BalanceProps) => (
+const BalanceDesktop = (props: BalanceData) => (
   <div className="hidden md:flex gap-6 items-center w-full">
-    {Object.values(props).map((item: BalanceData) => (
+    {Object.values(props).map((item: BalanceDetail) => (
       <Card className="p-4 max-w-none" key={item.title}>
         <IconContainer className="justify-start">
           <div className={cn('rounded-full p-3 text-[var(--foreground)] ml-[-2rem]', item.bgColor)}>
@@ -82,7 +47,7 @@ const BalanceDesktop = (props: BalanceProps) => (
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const BalanceMobile = ({ balance, expense, income }: BalanceProps) => (
+const BalanceMobile = ({ balance, expense, income }: BalanceData) => (
   <Card className="md:hidden p-4 text-center">
     <IconContainer>
       <Icon icon={balance.icon} width="2rem" />
@@ -107,7 +72,7 @@ const BalanceMobileDetails = ({
   textColor,
   title,
   value,
-}: { index: number } & BalanceData) => (
+}: { index: number } & BalanceDetail) => (
   <IconContainer className={cn(textColor, index && 'flex-row-reverse')} key={title}>
     <Icon icon={icon} width="1.75rem" />
     <div className={cn(index ? 'text-right' : 'text-left')}>

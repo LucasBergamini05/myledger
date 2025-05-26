@@ -7,3 +7,12 @@ import { twMerge } from 'tailwind-merge';
  * @returns - A single string of merged class names.
  */
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+
+export const formatCurrency = (value: number) => {
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    currency: 'BRL',
+    style: 'currency',
+  });
+
+  return formatter.format(value);
+};

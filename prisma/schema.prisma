@@ -12,6 +12,7 @@ model categorias {
   id_usuario Int
   nome       String   @db.VarChar(60)
   descricao  String?
+  cor_hex    String?  @default("FFFFFF") @db.VarChar(6)
   usuarios   usuarios @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@unique([id_usuario, nome], map: "categorias_id_usuario_nome_idx")

@@ -11,12 +11,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { transacoes } from '@/mocks/transacoes';
+import { formatCurrency } from '@/lib/string';
+import { TCategory, TCompleteAccount } from '@/types/database';
 
 import { getDistributionChartData } from '../lib/distribution-chart-data';
 
-export const DistributionChart = () => {
-  const { chartConfig, chartData } = getDistributionChartData();
+interface DistributionChartLabelProps {
+  userAccounts: TCompleteAccount[];
+  userCategories: TCategory[];
+}
+
+export const DistributionChart = ({
+  userAccounts,
+  userCategories,
+}: DistributionChartLabelProps) => {
+  const { chartConfig, chartData, totalValue } = getDistributionChartData(
+    userAccounts,
+    userCategories
+  );
 
   return (
     <Card className="md:max-w-full flex flex-col items-center">
@@ -40,7 +52,7 @@ export const DistributionChart = () => {
             paddingAngle={5}
             radius={'5rem'}
           >
-            <Label content={<DistributionChartLabel />} />
+            <Label content={<DistributionChartLabel totalValue={totalValue} />} />
           </Pie>
         </PieChart>
       </ChartContainer>
@@ -50,7 +62,7 @@ export const DistributionChart = () => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const DistributionChartLabel = ({ viewBox }: { categoria?: string } & Props) => {
+const DistributionChartLabel = ({ totalValue, viewBox }: { totalValue: number } & Props) => {
   if (!(viewBox && 'cx' in viewBox && 'cy' in viewBox)) return null;
 
   return (
@@ -60,12 +72,7 @@ const DistributionChartLabel = ({ viewBox }: { categoria?: string } & Props) => 
         x={viewBox.cx}
         y={viewBox.cy}
       >
-        {transacoes
-          .reduce((sum, transacao) => sum + transacao.valor, 0)
-          .toLocaleString('pt-BR', {
-            currency: 'BRL',
-            style: 'currency',
-          })}
+        {formatCurrency(totalValue)}
       </tspan>
       <tspan className="text-lg fill-foreground" x={viewBox.cx} y={(viewBox.cy || 0) + 24}>
         Total
