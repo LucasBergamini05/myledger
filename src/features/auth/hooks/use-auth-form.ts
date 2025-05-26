@@ -23,7 +23,7 @@ export const useAuthForm = (type: AuthFormType) => {
       await authRequest(data);
 
       setAlert(undefined);
-      router.push('/');
+      router.replace('/');
       router.refresh();
     } catch (error) {
       setAlert({ message: String(error), type: 'error' });
